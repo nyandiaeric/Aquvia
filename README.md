@@ -1,5 +1,3 @@
-# Aquvia
-Html code for Aquvia Development works
 <!DOCTYPE html>
 <html lang="en">
 <head>
