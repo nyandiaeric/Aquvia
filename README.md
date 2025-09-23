@@ -46,7 +46,7 @@ Html code for Aquvia Development works
 
     <header class="bg-hero text-white text-center py-20 px-4">
         <div class="max-w-4xl mx-auto">
-            <img src="https://googleusercontent.com/contentFetchId/uploaded:WhatsApp Image 2025-09-23 at 23.49.20_3f5bbd50.jpg-ab07fdce-189b-4303-be2b-f6be5f4b4664" alt="Aquvia Development Works Logo" class="w-96 h-auto mx-auto mb-4">
+            <img src="Aquvia.jpg" alt="Aquvia Development Works Logo" class="w-96 h-auto mx-auto mb-4">
             <h1 class="text-5xl font-bold mb-2">AQUVIA DEVELOPMENT WORKS</h1>
             <p class="text-xl font-light">Empowering Water, Finance, and Communities for Resilient Growth</p>
         </div>
@@ -213,7 +213,7 @@ Html code for Aquvia Development works
     </main>
 
     <footer class="bg-gray-800 text-white py-8 text-center">
-        <img src="https://googleusercontent.com/contentFetchId/uploaded:WhatsApp Image 2025-09-23 at 23.49.20_3f5bbd50.jpg-ab07fdce-189b-4303-be2b-f6be5f4b4664" alt="Aquvia Development Works Logo" class="w-48 h-auto mx-auto mb-2">
+        <img src="Aquvia.jpg" alt="Aquvia Development Works Logo" class="w-48 h-auto mx-auto mb-2">
         <p>Contact us to learn more:</p>
         <p>info@aquvia.dev | +254 729 469 504 | Nairobi, Kenya</p>
     </footer>
