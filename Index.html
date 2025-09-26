@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <title>AQUVIA Development Works - Empowering Water, Finance, and Communities</title>
+    <meta name="description" content="AQUVIA Development Works transforms rural water and agricultural systems into resilient, investment-ready enterprises using blended finance and community-first design.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#003F5C">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --brand-1: #003F5C;
+            --brand-2: #366E8A;
+            --brand-3: #6B9DB3;
+        }
+
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .brand-1 {
+            color: var(--brand-1);
+        }
+        .bg-brand-1 {
+            background: var(--brand-1);
+        }
+        .bg-brand-2 {
+            background: var(--brand-2);
+        }
+        .bg-brand-3 {
+            background: var(--brand-3);
+        }
+        .text-brand-2 {
+            color: var(--brand-2);
+        }
+        .text-brand-3 {
+            color: var(--brand-3);
+        }
+        
+        .focus-outline:focus {
+            outline: 3px solid rgba(0, 63, 92, .15);
+            outline-offset: 3px;
+        }
+
+        /* Hero background placeholder */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 63, 92, 0.68), rgba(0, 63, 92, 0.45)), url('https://placehold.co/1600x900/003F5C/FFFFFF?text=Flowing+Water+Infrastructure');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Hide interactive parts on print */
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        
+        /* 3D Card Flip styles */
+        .card-container {
+            perspective: 1000px;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .card-front {
+            background-color: white;
+            z-index: 2;
+        }
+
+        .card-back {
+            background-color: var(--brand-1);
+            color: white;
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        /* Hide icon on card-back for readability */
+        .card-back svg {
+            display: none;
+        }
+        
+        /* Flip on hover for desktop */
+        .card-container:hover .card {
+            transform: rotateY(180deg);
+        }
+        
+        /* Flip on click for mobile */
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        /* Services tabbed content styles */
+        .service-tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-tab.active {
+            border-bottom: 4px solid var(--brand-2);
+            color: var(--brand-2);
+            font-weight: 600;
+        }
+
+        .service-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .service-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Padlet embed iframe styles */
+        .padlet-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .padlet-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .project-image-container {
+            width: 100%;
+            padding-top: 66.66%; /* 3:2 Aspect Ratio */
+            position: relative;
+        }
+
+        .project-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        /* Partners section styles */
+        .partner-logo {
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.8;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        /* Partners section styles */
+        .partner-logo {
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.8;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Marquee styles */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+
+        .partner-logo-item {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .partner-logo-item img {
+            transition: transform 0.3s ease;
+        }
+
+        .partner-logo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Pause animation on hover */
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-16">
+                <a href="#home" class="flex items-center gap-3">
+                    <!-- Updated logo path -->
+                    <img src="Aquvia.PNG" alt="AQUVIA Logo" class="w-12 h-12 rounded-full">
+                    <div>
+                        <div class="text-lg font-bold brand-1">AQUVIA Development Works</div>
+                        <div class="text-xs text-gray-500">Water • Finance • Communities</div>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                    <a href="#home" class="hover:text-brand-1">Home</a>
+                    <a href="#about-preview" class="hover:text-brand-1">About Us</a>
+                    <a href="#services" class="hover:text-brand-1">Services</a>
+                    <a href="#projects" class="hover:text-brand-1">Projects</a>
+                    <a href="#framework" class="hover:text-brand-1">The Blueprint</a>
+                    <a href="#team" class="hover:text-brand-1">Team</a>
+                    <a href="#partners" class="hover:text-brand-1">Partners</a>
+                    <a href="#careers" class="hover:text-brand-1">Careers</a>
+                    <a href="#contact" class="hover:text-brand-1">Contact Us</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="#contact" class="hidden md:inline-block px-4 py-2 rounded-full bg-brand-1 text-white text-sm">Get in touch</a>
+                    <button id="mobileMenuButton" class="md:hidden p-2 focus:outline-none focus:ring-2 focus:ring-brand-1 rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden border-t">
+            <div class="px-4 pt-4 pb-6 space-y-3">
+                <a href="#home" class="block">Home</a>
+                <a href="#about-preview" class="block">About Us</a>
+                <a href="#services" class="block">Services</a>
+                <a href="#projects" class="block">Projects</a>
+                <a href="#framework" class="block">The Blueprint</a>
+                <a href="#team" class="block">Team</a>
+                <a href="#partners" class="block">Partners</a>
+                <a href="#careers" class="block">Careers</a>
+                <a href="#contact" class="block">Contact Us</a>
+                <a href="#contact" class="block px-4 py-2 rounded-full bg-brand-1 text-white text-center">Get in touch</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Home Section -->
+    <section id="home" class="hero-bg text-white py-28 md:py-36">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <!-- Added Logo Above Heading -->
+            <div class="flex justify-center mb-6">
+                <img src="Aquvia2.PNG" alt="AQUVIA Logo" class="w-64 h-32 md:w-96 md:h-48 rounded-lg bg-white/5 shadow-lg border border-white/5">
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Empowering Water, Finance, and Communities for Resilient Growth</h1>
+            <p class="mt-6 text-lg md:text-xl max-w-2xl mx-auto">We transform rural water and agricultural systems into resilient, investment-ready enterprises. Blended finance, catalytic capital, and community-first design — tailored for long-term impact.</p>
+            <div class="mt-8 flex items-center justify-center gap-4">
+                <a href="#services" class="px-6 py-3 bg-white text-brand-1 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow">Our Services</a>
+                <a href="#projects" class="px-6 py-3 bg-transparent border border-white rounded-full hover:bg-white/20 transition-colors">View Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+
+        <!-- About Preview Section -->
+        <section id="about-preview" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-4xl font-bold brand-1">About AQUVIA Development Works</h2>
+                <p class="mt-4 text-gray-700 leading-relaxed">AQUVIA Development Works is a purpose-driven enterprise that stands at the intersection of water, finance, agriculture, and climate resilience. We exist to transform rural and peri-urban communities into resilient, investment-ready enterprises capable of driving prosperity, equity, and long-term sustainability.</p>
+                <p class="mt-4 text-gray-700 leading-relaxed">Our work is grounded in the belief that access to water is not only a human right but also the foundation for economic growth, food security, and climate adaptation. By linking water systems, agriculture, and innovative finance, we create pathways that enable communities to thrive.</p>
+                <div class="mt-8 flex gap-3">
+                    <a href="#contact" class="px-5 py-2 bg-brand-1 text-white rounded-full hover:bg-brand-2 transition-colors">Contact Us</a>
+                    <a href="#full-about" class="px-5 py-2 border border-brand-1 text-brand-1 rounded-full hover:bg-gray-100 transition-colors">Read Our Full Story</a>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <img src="https://placehold.co/800x500/366E8A/ffffff?text=Community+Water+Point" alt="Community" class="rounded-lg shadow-xl" />
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://placehold.co/380x220/6B9DB3/003F5C?text=AquaVaults+Project" alt="AquaVaults" class="rounded-lg shadow-md" />
+                    <img src="https://placehold.co/380x220/A5D8E4/003F5C?text=RegenAgri+Farming" alt="RegenAgri" class="rounded-lg shadow-md" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Stats Section -->
+        <section id="impact" class="space-y-12 bg-gray-100 py-12 px-8 rounded-lg">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">Our Impact & Experience</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A decade of commitment to community transformation and sustainable growth.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold text-brand-2">100,000+</div>
+                    <div class="mt-2 text-gray-600">People reached with safe water</div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold text-brand-2">1,500%</div>
+                    <div class="mt-2 text-gray-600">Increase in rural water revenue</div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-5xl font-extrabold text-brand-2">28+</div>
+                    <div class="mt-2 text-gray-600">Workshops and trainings conducted</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Mission Section -->
+        <section id="vision-mission" class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-3xl font-bold text-brand-1 mb-4">Our Vision 🌟</h3>
+                <p class="text-gray-600">To create resilient and investment-ready communities across Africa where access to water, sustainable agriculture, and innovative finance drive prosperity, equity, and climate security. We envision thriving societies that are not only climate-resilient but also capable of unlocking opportunities for future generations through inclusive growth and sustainable development.</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-3xl font-bold text-brand-1 mb-4">Our Mission 💡</h3>
+                <p class="text-gray-600">Our mission is to design, finance, and deliver integrated systems that connect water, agriculture, and finance to accelerate community transformation. We achieve this by building strong partnerships with governments, the private sector, and communities; leveraging development finance and innovative capital; and promoting climate-smart solutions that ensure lasting social, economic, and environmental impact.</p>
+            </div>
+        </section>
+
+        <!-- Full About Section (Hidden until linked) -->
+        <section id="full-about" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">Our Full Story</h2>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-xl">
+                <h3 class="text-2xl font-bold text-brand-2 mb-4">🌍 About Us</h3>
+                <p class="mb-4 text-gray-700">AQUVIA Development Works is a purpose-driven enterprise that stands at the intersection of water, finance, agriculture, and climate resilience. We exist to transform rural and peri-urban communities into resilient, investment-ready enterprises capable of driving prosperity, equity, and long-term sustainability.</p>
+                <p class="mb-4 text-gray-700">Our work is grounded in the belief that access to water is not only a human right but also the foundation for economic growth, food security, and climate adaptation. By linking water systems, agriculture, and innovative finance, we create pathways that enable communities to thrive while reducing risks for investors and development partners.</p>
+
+                <h3 class="text-2xl font-bold text-brand-2 mb-4 mt-8">🌱 What We Do</h3>
+                <p class="mb-4 text-gray-700">We design and deliver integrated solutions that tackle systemic challenges faced by rural water and agricultural systems. These include:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Strengthening water governance through Public-Private-Community Partnerships (PPCPs).</li>
+                    <li>Unlocking finance with blended capital, securitization models, and catalytic investments.</li>
+                    <li>Building resilience by promoting regenerative agriculture and water-smart infrastructure such as AquaVaults and irrigation systems.</li>
+                    <li>Empowering people — especially youth and women — through financial literacy, enterprise development, and leadership in community systems.</li>
+                </ul>
+                <p class="mt-4 text-gray-700">Our holistic approach ensures that social, economic, and environmental goals are not only aligned but mutually reinforcing.</p>
+
+                <h3 class="text-2xl font-bold text-brand-2 mb-4 mt-8">📈 Our Impact & Experience</h3>
+                <p class="mb-4 text-gray-700">Over the past decade, AQUVIA Development Works and its networks have contributed significantly to community transformation, including:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Reaching 100,000+ people with safe, reliable, and affordable water in Kenya's arid and semi-arid counties.</li>
+                    <li>Increasing rural water revenue by over 1,500%, making community water systems financially viable and attractive for private investment.</li>
+                    <li>Attracting development finance and private sector partners to invest in underserved communities, de-risking entry into high-impact sectors.</li>
+                    <li>Supporting the implementation of 28+ workshops and trainings for rural water enterprises, empowering youth and women in leadership roles.</li>
+                    <li>Designing and championing innovative financing models for water and agriculture, including blended finance, revolving funds, and catalytic capital.</li>
+                    <li>Leading policy dialogues and stakeholder engagements with government ministries, county governments, international donors, and civil society.</li>
+                </ul>
+                <p class="mt-4 text-gray-700">Our projects span across Baringo, Kilifi, Kitui, Murang'a, Samburu, West Pokot, Kajiado, Taita Taveta, and Mandera, with scalable models that can be replicated across Africa.</p>
+
+                <h3 class="text-2xl font-bold text-brand-2 mb-4 mt-8">🤝 Our Philosophy</h3>
+                <p class="mb-4 text-gray-700">At AQUVIA, we don't just deliver projects — we build ecosystems of trust and shared value. Our philosophy is rooted in partnership: we collaborate with governments, private sector actors, donors, and communities to design solutions that balance development finance and private capital, ensuring resilience and sustainability.</p>
+                <p class="mb-4 text-gray-700">We believe that every community is investment-ready when given the right systems, capacity, and access to finance. By creating frameworks that de-risk investments and embed community ownership, we ensure that growth is inclusive, equitable, and enduring.</p>
+
+                <h3 class="text-2xl font-bold text-brand-2 mb-4 mt-8">🌟 Why Choose AQUVIA?</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><strong>Trusted Experience:</strong> Over 10 years in water, finance, and agricultural systems.</li>
+                    <li><strong>Innovative Finance Models:</strong> Blended finance, securitization, and catalytic capital strategies that reduce risk and attract investment.</li>
+                    <li><strong>Inclusive Partnerships:</strong> Strong networks with local, national, and international stakeholders.</li>
+                    <li><strong>Sustainable Solutions:</strong> A 9S Framework that integrates Structure, Strategy, Systems, Staffing, Skills, Style, Shared Value, Synergy, and Sustainability in every project.</li>
+                    <li><strong>Proven Impact:</strong> Demonstrated success in scaling rural water enterprises, improving governance, and fostering climate resilience.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">Our Services</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">We offer a full spectrum of services to empower communities for sustainable growth. Click on a card to learn more.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Service 1: End-to-End Solutions -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front bg-white">
+                            <div class="text-brand-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 19L2 19L2 5L12 5L12 7L4 7L4 17L20 17L20 15L22 15L22 19Z"/>
+                                    <path d="M8 12H16V14H8V12Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">End-to-End Solutions</h4>
+                        </div>
+                        <div class="card-back bg-brand-1 text-white">
+                            <h4 class="font-bold text-xl mb-2">End-to-End Solutions</h4>
+                            <p class="text-gray-200 mt-2">Convert community needs into sustainable enterprises.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 2: Blended Finance -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front bg-white">
+                            <div class="text-brand-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke-dasharray="0.01 4"/>
+                                    <path d="M12 2V22"/>
+                                    <path d="M2 12H22"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">Blended Finance & Structuring</h4>
+                        </div>
+                        <div class="card-back bg-brand-2 text-white">
+                            <h4 class="font-bold text-xl mb-2">Blended Finance & Structuring</h4>
+                            <p class="text-gray-200 mt-2">Designing catalytic capital stacks, securitization vehicles, and investor-safe pathways for rural infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 3: Water Systems -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front bg-white">
+                             <div class="text-brand-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"/>
+                                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/>
+                                    <path d="M15 12V16.0264L18.4343 18.4343L19.5 17.5"/>
+                                    <path d="M12 15L8.56567 17.419L5.5 16.5"/>
+                                    <path d="M9 12L5.56567 9.58097L4.5 10.5"/>
+                                    <path d="M12 9L15.4343 6.58097L16.5 7.5"/>
+                                    <path d="M15 12L18.4343 9.58097L19.5 10.5"/>
+                                    <path d="M9 12L5.56567 14.419L4.5 13.5"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">Water Systems Design & Operations</h4>
+                        </div>
+                        <div class="card-back bg-brand-2 text-white">
+                            <h4 class="font-bold text-xl mb-2">Water Systems Design & Operations</h4>
+                            <p class="text-gray-200 mt-2">From **AquaVaults** and boreholes to water utility governance — full lifecycle planning and operations support.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 4: RegenAgri & Value Chains -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front bg-white">
+                            <div class="text-brand-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 18H2V22H22V18Z"/>
+                                    <path d="M12 2L12 18"/>
+                                    <path d="M12 2C15.866 2 19 5.13401 19 9C19 12.866 15.866 16 12 16C8.13401 16 5 12.866 5 9C5 5.13401 8.13401 2 12 2Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">RegenAgri & Value Chains</h4>
+                        </div>
+                        <div class="card-back bg-brand-3 text-white">
+                            <h4 class="font-bold text-xl mb-2">RegenAgri & Value Chains</h4>
+                            <p class="text-gray-200 mt-2">**RegenAgri**, irrigation systems, and market linkages that boost incomes while protecting ecosystems.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 5: PPCP Design & Facilitation -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front bg-white">
+                            <div class="text-brand-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 18H20.01"/>
+                                    <path d="M12 21V3"/>
+                                    <path d="M12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">PPCP Design & Facilitation</h4>
+                        </div>
+                        <div class="card-back bg-brand-3 text-white">
+                            <h4 class="font-bold text-xl mb-2">PPCP Design & Facilitation</h4>
+                            <p class="text-gray-200 mt-2">Public-Private-Community Partnerships designed for shared governance, financing, and long-term sustainability.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 6: Capacity Building -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front bg-white">
+                            <div class="text-brand-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21V19C16 16.7909 14.2091 15 12 15C9.79086 15 8 16.7909 8 19V21"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                    <path d="M22 21V19C22 16.7909 20.2091 15 18 15C18 15 17.3888 15.0003 16.8906 15.0041"/>
+                                    <path d="M2 21V19C2 16.7909 3.79086 15 6 15C6 15 6.61116 15.0003 7.10941 15.0041"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">Capacity Building & Community Finance</h4>
+                        </div>
+                        <div class="card-back bg-brand-1 text-white">
+                            <h4 class="font-bold text-xl mb-2">Capacity Building & Community Finance</h4>
+                            <p class="text-gray-200 mt-2">Training, financial literacy, and enterprise development for local water committees and youth entrepreneurs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">Selected Projects</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A portfolio of our most impactful work. Each project represents a step towards creating a more resilient future.</p>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Sacho Tenges PPCP -->
+                <div class="bg-white rounded-lg shadow-lg project-card">
+                    <div class="project-image-container">
+                        <img src="https://placehold.co/600x400/366E8A/FFFFFF?text=Sacho+Tenges+PPCP+Project" alt="Sacho Tenges PPCP Project" class="project-image rounded-t-lg">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-brand-1">Sacho Tenges PPCP</h4>
+                        <p class="text-sm text-gray-600 mt-2">Location: Baringo County</p>
+                        <p class="mt-4 text-gray-700 leading-relaxed">Delegated management model with new pumping infrastructure and community revenue improvements.</p>
+                        <a href="#" class="mt-4 inline-block text-brand-2 hover:underline font-semibold">Read more &rarr;</a>
+                    </div>
+                </div>
+                <!-- Project 2: Baringo Rural Water -->
+                <div class="bg-white rounded-lg shadow-lg project-card">
+                    <div class="project-image-container">
+                        <img src="https://placehold.co/600x400/6B9DB3/003F5C?text=Baringo+Rural+Water+Project" alt="Baringo Rural Water" class="project-image rounded-t-lg">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-brand-1">Baringo Rural Water</h4>
+                        <p class="text-sm text-gray-600 mt-2">Location: Baringo County</p>
+                        <p class="mt-4 text-gray-700 leading-relaxed">Self-help groups upgraded to small utilities with financial management training for sustainability.</p>
+                        <a href="#" class="mt-4 inline-block text-brand-2 hover:underline font-semibold">Read more &rarr;</a>
+                    </div>
+                </div>
+                <!-- Project 3: Kilifi RegenAgri -->
+                <div class="bg-white rounded-lg shadow-lg project-card">
+                    <div class="project-image-container">
+                        <img src="https://placehold.co/600x400/A5D8E4/003F5C?text=Kilifi+RegenAgri+Project" alt="Kilifi RegenAgri" class="project-image rounded-t-lg">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-brand-1">Kilifi RegenAgri</h4>
+                        <p class="text-sm text-gray-600 mt-2">Location: Kilifi County</p>
+                        <p class="mt-4 text-gray-700 leading-relaxed">Integrated **AquaVaults** and regenerative agriculture improving yields and water access.</p>
+                        <a href="#" class="mt-4 inline-block text-brand-2 hover:underline font-semibold">Read more &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Optional: Padlet Embed (Commented Out) -->
+            <!-- Uncomment this section if you want to use the Padlet for a collaborative project showcase. -->
+            <!-- <div class="padlet-container max-w-5xl mx-auto hidden">
+                <iframe src="https://padlet.com/embed/placeholder_url" width="100%" height="100%" style="border:0" allow="camera;microphone;geolocation"></iframe>
+            </div> -->
+        </section>
+
+        <!-- The AQUVIA Resilience Blueprint Section -->
+        <section id="framework" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">The AQUVIA Resilience Blueprint — 9 Pillars of Impact (Kiringai 9Ss)</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Our holistic blueprint guiding projects from initial concept to sustained operation, ensuring robust governance, financial viability, and community ownership. Click on a pillar to learn more.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- 1. Structure -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 19L2 19L2 5L12 5L12 7L4 7L4 17L20 17L20 15L22 15L22 19Z"/>
+                                    <path d="M8 12H16V14H8V12Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">1. Structure</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">1. Structure</h4>
+                            <p class="text-gray-200 mt-2">Design governance, legal, and operational structures that are secure and transparent to de-risk investment and build community trust for the long term.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2. Strategy -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                             <div class="text-brand-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2L12 22"/>
+                                    <path d="M5 12L19 12"/>
+                                    <path d="M12 2C12 7.52285 16.4772 12 22 12C16.4772 12 12 16.4772 12 22C12 16.4772 7.52285 12 2 12C7.52285 12 12 7.52285 12 2Z"/>
+                                    <path d="M12 22L12 2"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">2. Strategy</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">2. Strategy</h4>
+                            <p class="text-gray-200 mt-2">Integrate finance innovation and community resilience with blended finance, catalytic capital, and **RegenAgri** to scale solutions.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 3. Systems -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke-dasharray="0.01 4"/>
+                                    <path d="M12 2V22"/>
+                                    <path d="M2 12H22"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-1 mt-4">3. Systems</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">3. Systems</h4>
+                            <p class="text-gray-200 mt-2">Design fit-for-purpose financial and operational systems with digital billing and performance dashboards for long-term viability.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 4. Staffing -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21V19C16 16.7909 14.2091 15 12 15C9.79086 15 8 16.7909 8 19V21"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                    <path d="M22 21V19C22 16.7909 20.2091 15 18 15C18 15 17.3888 15.0003 16.8906 15.0041"/>
+                                    <path d="M2 21V19C2 16.7909 3.79086 15 6 15C6 15 6.61116 15.0003 7.10941 15.0041"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-2 mt-4">4. Staffing</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">4. Staffing</h4>
+                            <p class="text-gray-200 mt-2">Quantify and optimize labor by training local youth and women in financial management and technical operations to create a skilled workforce.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 5. Skills -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 3L22 3L22 21L2 21L2 3Z"/>
+                                    <path d="M8 7L16 7"/>
+                                    <path d="M8 11L16 11"/>
+                                    <path d="M8 15L14 15"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-2 mt-4">5. Skills</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">5. Skills</h4>
+                            <p class="text-gray-200 mt-2">Embed critical skills in finance literacy, governance, and climate-smart resource management for continuous community growth and self-reliance.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 6. Style -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 18H20.01"/>
+                                    <path d="M12 21V3"/>
+                                    <path d="M12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-2 mt-4">6. Style</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">6. Style</h4>
+                            <p class="text-gray-200 mt-2">Maintain a collaborative, inclusive, and catalytic leadership style that empowers communities as equal partners in project design and implementation.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 7. Shared Value -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/>
+                                    <path d="M15 12V16.0264L18.4343 18.4343L19.5 17.5"/>
+                                    <path d="M12 15L8.56567 17.419L5.5 16.5"/>
+                                    <path d="M9 12L5.56567 9.58097L4.5 10.5"/>
+                                    <path d="M12 9L15.4343 6.58097L16.5 7.5"/>
+                                    <path d="M15 12L18.4343 9.58097L19.5 10.5"/>
+                                    <path d="M9 12L5.56567 14.419L4.5 13.5"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-3 mt-4">7. Shared Value</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">7. Shared Value</h4>
+                            <p class="text-gray-200 mt-2">Structure public-private-community partnerships to align incentives for investors, communities, and governments, ensuring mutual benefit and shared success.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 8. Synergy -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                    <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-3 mt-4">8. Synergy</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">8. Synergy</h4>
+                            <p class="text-gray-200 mt-2">Create synergy between water and agriculture, finance and climate resilience, building mutually beneficial and interconnected ecosystems for sustained impact.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 9. Sustainability -->
+                <div class="h-64 card-container">
+                    <div class="card cursor-pointer">
+                        <div class="card-front">
+                            <div class="text-brand-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"/>
+                                    <path d="M15 12V16.0264L18.4343 18.4343L19.5 17.5"/>
+                                    <path d="M12 15L8.56567 17.419L5.5 16.5"/>
+                                    <path d="M9 12L5.56567 9.58097L4.5 10.5"/>
+                                    <path d="M12 9L15.4343 6.58097L16.5 7.5"/>
+                                    <path d="M15 12L18.4343 9.58097L19.5 10.5"/>
+                                    <path d="M9 12L5.56567 14.419L4.5 13.5"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-xl text-brand-3 mt-4">9. Sustainability</h4>
+                        </div>
+                        <div class="card-back">
+                            <h4 class="font-bold text-xl text-white mb-2">9. Sustainability</h4>
+                            <p class="text-gray-200 mt-2">Design every model to be financially, socially, and environmentally sustainable through blended finance and inclusive governance to ensure long-term viability.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">Our Team</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A multidisciplinary team of technical, financial, and community development experts committed to driving change.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-2xl transition-shadow">
+                    <img src="https://placehold.co/120x120/003F5C/FFFFFF?text=EN" alt="Eric W. Nyandia" class="mx-auto rounded-full w-32 h-32 object-cover">
+                    <h4 class="mt-4 font-bold text-xl text-brand-1">Eric W. Nyandia</h4>
+                    <p class="text-sm text-gray-600">Founder & WASH Finance Specialist</p>
+                </div>
+            </div>
+        </section>
+
+<!-- Partners Section -->
+<section id="partners" class="space-y-12">
+    <div class="text-center">
+        <h2 class="text-4xl font-bold brand-1">Our Partners</h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">We collaborate with leading organizations to drive sustainable development in water, finance, and community resilience.</p>
+    </div>
+    
+    <!-- Marquee Section -->
+    <div class="bg-white p-6 rounded-lg shadow-lg overflow-hidden">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <!-- Partner logos will scroll here -->
+                <div class="partner-logo-item">
+                    <a href="https://www.wasreb.go.ke/" target="_blank">
+                        <img src="wasreb.png" alt="WASREB Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <div class="partner-logo-item">
+                    <a href="https://muranga.go.ke/" target="_blank">
+                        <img src="muranga.png" alt="Murang'a County Government Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <div class="partner-logo-item">
+                    <a href="https://nyeri.go.ke/" target="_blank">
+                        <img src="nyeri.png" alt="Nyeri County Government Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <div class="partner-logo-item">
+                    <a href="https://baringo.go.ke/" target="_blank">
+                        <img src="baringo.png" alt="Baringo County Government Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <!-- Duplicate the content for seamless looping -->
+                <div class="partner-logo-item">
+                    <a href="https://www.wasreb.go.ke/" target="_blank">
+                        <img src="wasreb.png" alt="WASREB Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <div class="partner-logo-item">
+                    <a href="https://muranga.go.ke/" target="_blank">
+                        <img src="muranga.png" alt="Murang'a County Government Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <div class="partner-logo-item">
+                    <a href="https://nyeri.go.ke/" target="_blank">
+                        <img src="nyeri.png" alt="Nyeri County Government Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+                <div class="partner-logo-item">
+                    <a href="https://baringo.go.ke/" target="_blank">
+                        <img src="baringo.png" alt="Baringo County Government Logo" class="h-20 mx-4">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Partner Details Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <!-- WASREB -->
+        <a href="https://www.wasreb.go.ke/" target="_blank" class="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow partner-logo">
+            <div class="h-32 flex items-center justify-center">
+                <img src="wasreb.png" alt="WASREB Logo" class="max-h-full max-w-full">
+            </div>
+            <h4 class="mt-4 font-bold text-xl text-brand-1">Water Services Regulatory Board</h4>
+            <p class="text-gray-600 mt-2">Regulating water services for sustainable development in Kenya</p>
+        </a>
+        
+        <!-- Murang'a County Government -->
+        <a href="https://muranga.go.ke/" target="_blank" class="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow partner-logo">
+            <div class="h-32 flex items-center justify-center">
+                <img src="muranga.png" alt="Murang'a County Government Logo" class="max-h-full max-w-full">
+            </div>
+            <h4 class="mt-4 font-bold text-xl text-brand-1">Murang'a County Government</h4>
+            <p class="text-gray-600 mt-2">Promoting sustainable development and water access in Murang'a County</p>
+        </a>
+        
+        <!-- Nyeri County Government -->
+        <a href="https://nyeri.go.ke/" target="_blank" class="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow partner-logo">
+            <div class="h-32 flex items-center justify-center">
+                <img src="nyeri.png" alt="Nyeri County Government Logo" class="max-h-full max-w-full">
+            </div>
+            <h4 class="mt-4 font-bold text-xl text-brand-1">Nyeri County Government</h4>
+            <p class="text-gray-600 mt-2">Advancing water security and agricultural development in Nyeri County</p>
+        </a>
+        
+        <!-- Baringo County Government -->
+        <a href="https://baringo.go.ke/" target="_blank" class="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow partner-logo">
+            <div class="h-32 flex items-center justify-center">
+                <img src="baringo.png" alt="Baringo County Government Logo" class="max-h-full max-w-full">
+            </div>
+            <h4 class="mt-4 font-bold text-xl text-brand-1">Baringo County Government</h4>
+            <p class="text-gray-600 mt-2">Fostering sustainable water and agricultural initiatives in Baringo County</p>
+        </a>
+    </div>
+</section>
+
+        <!-- Careers Section -->
+        <section id="careers" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold brand-1">Careers</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">We are not currently hiring, but we are always looking for passionate people. Feel free to send us a speculative application via the contact form below.</p>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-xl mx-auto text-center">
+                <p class="text-lg font-semibold brand-1">No Openings at the moment</p>
+                <p class="mt-2 text-gray-600">Please check back later for future opportunities.</p>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section id="call-to-action" class="bg-brand-1 text-white p-16 rounded-lg shadow-xl text-center space-y-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold">Ready to build a resilient future?</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">Let's partner to design and finance solutions that empower communities and create lasting value.</p>
+            <a href="#contact" class="px-6 py-3 bg-white text-brand-1 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow">Get in touch</a>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="bg-white p-8 md:p-12 rounded-lg shadow-xl grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-bold brand-1">Contact Us</h2>
+                <p class="mt-4 text-gray-600 leading-relaxed">We welcome partnerships with funders, county governments, and community groups who share our vision. Feel free to use the form or reach out to us directly.</p>
+                <ul class="mt-6 space-y-3 text-gray-700">
+                    <li><strong>Office:</strong> Nairobi, Kenya</li>
+                    <li><strong>Email:</strong> <a href="mailto:info@aquvia.dev" class="text-brand-2 hover:underline">info@aquvia.dev</a></li>
+                    <li><strong>Phone:</strong> +254 729 469 504</li>
+                </ul>
+                <div class="mt-6 text-sm text-gray-500">
+                    Follow us:
+                    <a href="#" class="underline hover:text-brand-1 transition-colors">LinkedIn</a> •
+                    <a href="#" class="underline hover:text-brand-1 transition-colors">Twitter</a>
+                </div>
+            </div>
+            <div>
+                <form id="contactForm" class="space-y-6" onsubmit="submitContact(event)">
+                    <div>
+                        <label for="fullname" class="block text-sm font-medium">Full Name</label>
+                        <input type="text" id="fullname" required class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-1 focus:border-transparent transition-all" />
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium">Email Address</label>
+                        <input type="email" id="email" required class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-1 focus:border-transparent transition-all" />
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium">Message</label>
+                        <textarea id="message" rows="5" required class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-1 focus:border-transparent transition-all"></textarea>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-brand-1 text-white rounded-full font-semibold shadow hover:bg-brand-2 transition-colors">Send message</button>
+                        <a href="#" class="w-full sm:w-auto px-6 py-3 border border-brand-1 text-brand-1 rounded-full text-center hover:bg-gray-100 transition-colors">Download profile (PDF)</a>
+                    </div>
+                    <div id="formMessage" class="mt-4 text-sm text-center font-medium hidden"></div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <div class="flex items-center gap-3">
+                    <img src="Aquvia.PNG" alt="AQUVIA Logo" class="w-12 h-12 rounded-full">
+                    <div>
+                        <div class="font-bold text-lg">AQUVIA Development Works</div>
+                        <div class="text-xs text-gray-400">Water • Finance • Communities</div>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-gray-400 leading-relaxed">Building resilient rural water & agri systems using blended finance and community-led models. Our goal is sustained impact and shared value.</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-4">Quick Links</h4>
+                <ul class="text-sm text-gray-300 space-y-2">
+                    <li><a href="#about-preview" class="hover:underline">About Us</a></li>
+                    <li><a href="#services" class="hover:underline">Services</a></li>
+                    <li><a href="#projects" class="hover:underline">Projects</a></li>
+                    <li><a href="#framework" class="hover:underline">The Blueprint</a></li>
+                    <li><a href="#team" class="hover:underline">Team</a></li>
+                    <li><a href="#partners" class="hover:underline">Partners</a></li>
+                    <li><a href="#careers" class="hover:underline">Careers</a></li>
+                    <li><a href="#contact" class="hover:underline">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-4">Contact</h4>
+                <p class="text-sm text-gray-300">info@aquvia.dev</p>
+                <p class="text-sm text-gray-300">+254 729 469 504</p>
+                <p class="text-sm text-gray-300">Nairobi, Kenya</p>
+            </div>
+        </div>
+        <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+            &copy; <span id="year"></span> AQUVIA Development Works — All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Contact form submission handler (does not send email, just shows message)
+        function submitContact(event) {
+            event.preventDefault();
+            const formMessage = document.getElementById('formMessage');
+            formMessage.textContent = 'Thank you! Your message has been sent.';
+            formMessage.classList.remove('hidden');
+            setTimeout(() => {
+                formMessage.classList.add('hidden');
+                document.getElementById('contactForm').reset();
+            }, 5000);
+        }
+
+        // Set current year in the footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Card flip functionality for all cards on mobile
+        const cardContainers = document.querySelectorAll('.card-container');
+        cardContainers.forEach(container => {
+            container.addEventListener('click', function() {
+                // Only flip if not a link
+                if (window.innerWidth <= 768) {
+                    this.querySelector('.card').classList.toggle('flipped');
+                }
+            });
+        });
+    // Marquee functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const marqueeContent = document.querySelector('.marquee-content');
+        
+        // Adjust animation speed based on content width
+        const contentWidth = marqueeContent.scrollWidth / 2;
+        const duration = contentWidth / 50;
+        
+        marqueeContent.style.animationDuration = `${duration}s`;
+    });
+    </script>
+</body>
+</html>
